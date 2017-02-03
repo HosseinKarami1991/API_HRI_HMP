@@ -1,0 +1,45 @@
+/*
+ * interface3.cc
+ *
+ *  Created on: Dec 2, 2016
+ *      Author: nasa
+ */
+
+
+
+//CPP
+#include <unistd.h>
+#include <cstdlib>
+#include <cstdio>
+#include <sstream>
+#include <iostream>
+#include <vector>
+#include <cmat/cmat.h>
+#include <thread>
+#include <atomic>
+#include <mutex>
+#include <ros/ros.h>
+
+using std::cout;
+using std::endl;
+using std::vector;
+
+
+int main(int argc, char **argv)
+{
+	ros::init(argc, argv, "API_HRI_HMP");
+	ros::NodeHandle nh;
+
+	 ros::Rate loop_rate(100);
+int counter1=0;
+while (ros::ok() ) {
+
+counter1++;
+cout<<counter1<<endl;
+ros::spinOnce();
+
+
+return 0;
+}
+}
+
