@@ -192,7 +192,8 @@ void cognitionClass::reasoningHMP(){
 	}
 
 	//! PutDown can be done after Screwing,ScrewingInitial, pickUp:
-	if (cog_hmp_ActionNumber==2 &&(reas_hmp_previous_ActionNumber==0 || reas_hmp_previous_ActionNumber==1 || reas_hmp_previous_ActionNumber==3))
+	//&& firstAction_flag==false // not sure, check more later
+	if (cog_hmp_ActionNumber==2 && firstAction_flag==false &&(reas_hmp_previous_ActionNumber==0 || reas_hmp_previous_ActionNumber==1 || reas_hmp_previous_ActionNumber==3))
 	{
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reas_hmp_previous_ActionNumber=cog_hmp_ActionNumber;
