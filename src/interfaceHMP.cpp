@@ -20,8 +20,14 @@
 #include <iterator>
 #include <std_msgs/Char.h>
 #include <std_msgs/String.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <fstream>
+#include <iostream>
+
 #include "cognitionClassAPI.hpp"
 #include "callBackClassAPI.hpp"
+
 
 #define RST  "\x1B[0m"
 #define KBLU  "\x1B[34m"
@@ -69,6 +75,14 @@ int main(int argc, char **argv)
 	char HMP_init_param_change;// check yes/no for changing initial questions of hmp/ctrl
 	int HMP_type_no; // choosing type and mode of ctrl, hmp methods.(we currently have just one case)
 
+	const char* DataLogPath	="/home/nasa/Datalog/AIIA";
+	string DataLogPath2		="/home/nasa/Datalog/AIIA/0";
+	mkdir(DataLogPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	struct timeval tp;
+	unsigned long int ms0 ;
+	ofstream Myfile1;
+	string recogActionName;
+	Myfile1.open ((DataLogPath2+"/38_Gestures.txt").c_str(),ios::app);
 
 	cout<<"\n\n"<<BOLD(FGRN("Default HMP Type is GMM. If it is OK Press <y>,"
 			" Otherwise Press <n>: y"));
@@ -78,6 +92,7 @@ int main(int argc, char **argv)
 		obj_callback.HMP_initial_command_flag=false;
 		cout<<"Which HMP method do you want to use:"<<endl;
 		cout<<"GMM: press 1:"<<endl<<"KF: press 2:"<<endl<<"NN: press 3 \t";
+
 	//	cin>>HMP_type_no;
 		paramHMPInit[0]=HMP_type_no;
 	}
@@ -119,8 +134,10 @@ int main(int argc, char **argv)
 			msg_HRecAction.data=obj_cognition.cognitionHMP_get();
 			ROS_INFO("Publish Recognized Action:  %s",msg_HRecAction.data.c_str());
 			pub_HRecAction.publish(msg_HRecAction);
-//			ms_Gesture_time= duration_cast< microseconds >(system_clock::now().time_since_epoch());
-//			Myfile2 <<ms_Gesture_time.count()<<" "<<obj_cognition.cognitionHMP_get()<<"\n";
+			gettimeofday(&tp, NULL);
+			ms0 = tp.tv_sec * 1000000 + tp.tv_usec ;
+			recogActionName=msg_HRecAction.data.c_str();
+			Myfile1 <<ms0<<" "<<recogActionName<<"\n";
 
 		}
 
@@ -146,6 +163,8 @@ int main(int argc, char **argv)
 			msg_HMPPar.data=ss_HMPPar.str();
 			ROS_INFO("I publish HMP Initial command ...");
 			pub_HMP_cmnd.publish(msg_HMPPar);
+
+
 		}
 
 		/*!
@@ -188,6 +207,7 @@ int main(int argc, char **argv)
 		ros::spinOnce();
 		count++;
 }
+	Myfile1.close();
 return 0;
 }
 
