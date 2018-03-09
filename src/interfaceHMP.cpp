@@ -75,14 +75,14 @@ int main(int argc, char **argv)
 	char HMP_init_param_change;// check yes/no for changing initial questions of hmp/ctrl
 	int HMP_type_no; // choosing type and mode of ctrl, hmp methods.(we currently have just one case)
 
-	const char* DataLogPath	="/home/nasa/Datalog/AIIA";
-	string DataLogPath2		="/home/nasa/Datalog/AIIA/0";
+	const char* DataLogPath	="/home/nasa/Datalog/IROS/HAR/1";
+	string DataLogPath2		="/home/nasa/Datalog/IROS/HAR/1";
 	mkdir(DataLogPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	struct timeval tp;
 	unsigned long int ms0 ;
 	ofstream Myfile1;
 	string recogActionName;
-	Myfile1.open ((DataLogPath2+"/38_Gestures.txt").c_str(),ios::app);
+	Myfile1.open ((DataLogPath2+"/Gestures.txt").c_str(),ios::app);
 
 	cout<<"\n\n"<<BOLD(FGRN("Default HMP Type is GMM. If it is OK Press <y>,"
 			" Otherwise Press <n>: y"));
@@ -111,8 +111,10 @@ int main(int argc, char **argv)
 		if (obj_callback.HMP_parameter_cognition_flag==false){
 			for(int k1=0;k1<noOutputHMP;k1++)
 				obj_cognition.hmp_ActionsName[k1]=obj_callback.parameterHMP[1+k1];
-				obj_callback.HMP_parameter_cognition_flag=true;
-			}
+			obj_callback.HMP_parameter_cognition_flag=true;
+//			for(int k2=0;k2<noOutputHMP;k2++)
+//				cout<< k2<< " " << obj_cognition.hmp_ActionsName[k2]<<endl;
+		}
 
 		/*!
 		 *  Get the possibilities from HMP-detector to API
@@ -120,6 +122,7 @@ int main(int argc, char **argv)
 		 */
 		if (obj_callback.HMP_cognition_flag==false){
 			obj_cognition.cognitionHMP_set(obj_callback.HMPOutput);
+//			cout<<"poss: "<<obj_callback.HMPOutput[0]<<obj_callback.HMPOutput[1]<<endl;
 			obj_cognition.cognitionHMP();
 			obj_callback.HMP_cognition_flag=true;
 		}

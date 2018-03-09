@@ -29,7 +29,7 @@ cognitionClass::cognitionClass(int no_hmp_out1){
 		percentage_check_max[i]=0.9;
 		hmp_ActionsName[i]="0";
 	}
-	percentage_check_max[2]=0.965;// put down needs less max_check point!
+//	percentage_check_max[2]=0.965;// put down needs less max_check point!
 	hmp_ActionsName[NO_OUTPUT_HMP]="NonOfTheActions";
 
 	last_check_point=-10;// maybe when the program start the first possibility be the highest one!
@@ -107,7 +107,7 @@ void cognitionClass::cognitionHMP() {
 		 * it is or a high max (more than previous) or new real max but before came less than 10%
 		 * max possibility should be higher than 60%
 		 */
-		if (HMP_posib_max[j]>0.7 &&	hmpOutput[j]< (percentage_check_max[j]*HMP_posib_max[j]) && HMP_posib_max_time[j]> (last_check_point+1) &&
+		if (HMP_posib_max[j]>0.3 &&	hmpOutput[j]< (percentage_check_max[j]*HMP_posib_max[j]) && HMP_posib_max_time[j]> (last_check_point+1) &&
 				hmpOutput[j]>zero_threshold && j==HMP_max_element &&
 				((HMP_max_element!=prev_max_element && max_flag[j]==false)||
 						(HMP_max_element==prev_max_element && HMP_posib_max[j]>percentage_check_min*prev_max_value) )  )
@@ -172,9 +172,11 @@ void cognitionClass::reasoningHMP(){
 	 *  we are not interested in NON of the actions option, for checking with previous actions.
 	 *  pick up(0) can be done after PutDown(2), or at first:
 */
+//	cout<<"cognitionClass::reasoningHMP 1111: "<<cog_hmp_ActionNumber<<"-"<<reas_hmp_ActionNumber<<" "<<hmp_ActionsName[reas_hmp_ActionNumber]<<endl;
 
 	if (cog_hmp_ActionNumber==0 && ( reas_hmp_previous_ActionNumber==2 ||firstAction_flag==true))
 	{
+//		cout<<001<<endl;
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reas_hmp_previous_ActionNumber=cog_hmp_ActionNumber;
 		reasoningHMP_flag=false;
@@ -188,7 +190,7 @@ void cognitionClass::reasoningHMP(){
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reas_hmp_previous_ActionNumber=cog_hmp_ActionNumber;
 		reasoningHMP_flag=false;
-
+//		cout<<002<<endl;
 	}
 
 	//! PutDown can be done after Screwing,ScrewingInitial, pickUp:
@@ -198,6 +200,7 @@ void cognitionClass::reasoningHMP(){
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reas_hmp_previous_ActionNumber=cog_hmp_ActionNumber;
 		reasoningHMP_flag=false;
+//		cout<<003<<endl;
 
 	}
 
@@ -207,20 +210,24 @@ void cognitionClass::reasoningHMP(){
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reas_hmp_previous_ActionNumber=cog_hmp_ActionNumber;
 		reasoningHMP_flag=false;
-
+//		cout<<004<<endl;
 	}
 	//! Non of the actions: i think this one should be commented now also do not make cognitionHMP_flag false there now!
 	if (cog_hmp_ActionNumber==4)
 	{
 		reas_hmp_ActionNumber=cog_hmp_ActionNumber;
 		reasoningHMP_flag=true;
+//		cout<<005<<endl;
 	}
 	cognitionHMP_flag=true;
 
 	if (reasoningHMP_flag==true && firstAction_flag==false && cog_hmp_ActionNumber!=4)
 	{
 		cout<<"Restart the Test!"<<endl;
+//		cout<<006<<endl;
 	}
+//	cout<<"cognitionClass::reasoningHMP 2222: "<<cog_hmp_ActionNumber<<reas_hmp_ActionNumber<<" "<<hmp_ActionsName[reas_hmp_ActionNumber]<<endl;
+
 
 }
 string cognitionClass::cognitionHMP_get() {
