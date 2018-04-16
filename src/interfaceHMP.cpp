@@ -75,8 +75,8 @@ int main(int argc, char **argv)
 	char HMP_init_param_change;// check yes/no for changing initial questions of hmp/ctrl
 	int HMP_type_no; // choosing type and mode of ctrl, hmp methods.(we currently have just one case)
 
-	const char* DataLogPath	="/home/nasa/Datalog/IROS/HAR/1";
-	string DataLogPath2		="/home/nasa/Datalog/IROS/HAR/1";
+	const char* DataLogPath	="/home/nasa/Datalog/ROMAN2018/0";
+	string DataLogPath2		="/home/nasa/Datalog/ROMAN2018/0";
 	mkdir(DataLogPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	struct timeval tp;
 	unsigned long int ms0 ;

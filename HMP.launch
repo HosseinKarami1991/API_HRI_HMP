@@ -1,5 +1,5 @@
 <launch>
-  <node name="ros_server.py"	pkg="wearami_sockets"  		type="ros_server.py"  			output="screen" respawn="false" />
+  <node name="ros_server"	pkg="wearami_sockets"  		type="ros_server.py"  			output="screen" respawn="false" />
   <node name="HMPdetector"	pkg="HMPdetector"  		type="HMPdetector"     args="-v"	output="screen" respawn="false" />
   <node name="interfaceHMP"     pkg="api_hri_HMPdetector"  	type="interfaceHMP"    			output="screen" respawn="false" />
 </launch>
